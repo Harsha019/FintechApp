@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">FinTechTestApp</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="demo_heading_txt">Demo: Module \n Access UI</string>
+    <string name="cooling_period_txt">Cooling ends in 02:14</string>
+    <string name="module_title_txt">Module Title</string>
 </resources>

@@ -19,6 +19,10 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
+    buildFeatures {
+        viewBinding = true
+    }
+
     buildTypes {
         release {
             isMinifyEnabled = false
@@ -50,6 +54,7 @@ dependencies {
     implementation(libs.room.runtime)
     implementation(libs.androidx.navigation.fragment.ktx)
     implementation(libs.androidx.navigation.ui.ktx)
+    implementation(libs.androidx.viewbinding)
     kapt(libs.room.compiler)
     implementation(libs.room.ktx)
 
