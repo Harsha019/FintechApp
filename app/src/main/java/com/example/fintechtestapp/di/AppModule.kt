@@ -1,5 +1,7 @@
 package com.example.fintechtestapp.di
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.room.Room
 import com.example.fintechtestapp.data.local.AppDatabase
 import com.example.fintechtestapp.data.local.UserDao
@@ -25,4 +27,5 @@ val appModule = module {
 
     single { AccessRepository(get()) }
 
+    viewModel { MainViewModel(get(), get()) }
 }

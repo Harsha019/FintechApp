@@ -10,34 +10,39 @@ import java.time.Instant
 import kotlin.math.max
 
 class AccessManager {
-
     @RequiresApi(Build.VERSION_CODES.O)
     fun isCoolingPeriod(user: UserEntity?): Boolean {
-        if (user == null) return false
-        val now = Instant.now()
-        val end = Instant.parse(user.coolingEndTime)
-        return now.isBefore(end)
-    }
-
-
-    @RequiresApi(Build.VERSION_CODES.O)
-    fun getRemainingCoolingTime(user: UserEntity?): String {
-        if (user == null) return ""
-        val now = Instant.now()
-        val end = Instant.parse(user.coolingEndTime)
-        val duration = Duration.between(now, end)
-        return if (duration.isNegative) "" else {
-            val minutes = duration.toMinutes()
-            val seconds = duration.seconds % 60
-            "Cooling ends in %02d:%02d".format(minutes, seconds)
+        user ?: return false
+        return try {
+            val now = Instant.now()
+            val endTime = Instant.parse(user.coolingEndTime)
+            now.isBefore(endTime)
+        } catch (e: Exception) {
+            false
         }
     }
 
-    fun isModuleAccessible(user: UserEntity?, moduleId: String): Boolean {
-        if (user == null) return false
-        val accessibleModules = Gson().fromJson(user.accessibleModules, Array<String>::class.java).toList()
-        return accessibleModules.contains(moduleId)
+    @RequiresApi(Build.VERSION_CODES.O)
+    fun getRemainingCoolingTime(user: UserEntity?): String {
+        user ?: return "Cooling ends in 00:00"
+        return try {
+            val now = Instant.now()
+            val endTime = Instant.parse(user.coolingEndTime)
+            val duration = Duration.between(now, endTime)
+            if (duration.isNegative) return "Cooling ends in 00:00"
+            val minutes = duration.toMinutes()
+            val seconds = duration.seconds % 60
+            String.format("Cooling ends in %02d:%02d", minutes, seconds)
+        } catch (e: Exception) {
+            "Cooling ends in 00:00"
+        }
     }
 
-
+    @RequiresApi(Build.VERSION_CODES.O)
+    fun isModuleAccessible(user: UserEntity?, moduleId: String): Boolean {
+        user ?: return false
+        if (isCoolingPeriod(user)) return false
+        val accessibleModules = user.accessibleModules.split(",")
+        return accessibleModules.contains(moduleId)
+    }
 }

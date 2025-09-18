@@ -2,6 +2,5 @@ package com.example.fintechtestapp.data.model
 
 data class ModuleState(
     val module: Module,
-    val isAccessible: Boolean,
-    val reason: String
+    val isAccessible: Boolean
 )

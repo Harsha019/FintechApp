@@ -9,17 +9,20 @@ import com.example.fintechtestapp.databinding.ItemModuleBinding
 class CardAdapter(
     private var modules: List<ModuleState>,
     private val onItemClick: (ModuleState) -> Unit
-): RecyclerView.Adapter<CardAdapter.ModuleViewHolder>() {
-    override fun onCreateViewHolder(
-        parent: ViewGroup,
-        viewType: Int
-    ): CardAdapter.ModuleViewHolder {
+) : RecyclerView.Adapter<CardAdapter.ModuleViewHolder>() {
+
+    fun submitList(newModules: List<ModuleState>) {
+        modules = newModules
+        notifyDataSetChanged()
+    }
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ModuleViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         val binding = ItemModuleBinding.inflate(inflater, parent, false)
         return ModuleViewHolder(binding)
     }
 
-    override fun onBindViewHolder(holder: CardAdapter.ModuleViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ModuleViewHolder, position: Int) {
         holder.bind(modules[position])
     }
 
@@ -31,13 +34,7 @@ class CardAdapter(
             binding.root.setOnClickListener {
                 onItemClick(moduleState)
             }
-            if (moduleState.isAccessible) {
-                binding.root.alpha = 1.0f
-            } else {
-                binding.root.alpha = 0.5f
-            }
+            binding.root.alpha = if (moduleState.isAccessible) 1.0f else 0.5f
         }
     }
-
-
 }
