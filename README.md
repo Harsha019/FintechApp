@@ -31,5 +31,13 @@ This is a simple Android project built using Kotlin with basic architecture setu
 - Screen is now ready to handle **dynamic data flow** from JSON (work in progress).  
 - Next step: integrate **API parsing and AccessManager logic** for cooling period and permissions.
 
+### Day 3
+- Integrated **dynamic data flow** from a **mock API response** into the UI.  
+- Parsed mock JSON and displayed the data dynamically on the **Main Demo Screen** (Payments, Account Info, Consent Center).  
+- Currently, the data is flowing correctly into the UI.  
+- **Conditions and AccessManager checks (cooling period, role-based permissions) are not yet added** – this will be implemented in the next step.  
+- Next step: Add **cooling period checks, role-based access control, and module permission logic** on top of the dynamic data flow.
+
+
 
 
