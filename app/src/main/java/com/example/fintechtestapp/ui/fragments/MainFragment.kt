@@ -2,6 +2,7 @@ package com.example.fintechtestapp.ui.fragments
 
 import android.os.Build
 import android.os.Bundle
+import android.os.CountDownTimer
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -25,19 +26,21 @@ class MainFragment : BaseFragment<FragmentMainBinding>(FragmentMainBinding::infl
 
     private val viewModel: MainViewModel by viewModel()
     private lateinit var cardAdapter: CardAdapter
+    private var coolingTimer: CountDownTimer? = null
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         cardAdapter = CardAdapter(emptyList()) { moduleState ->
-            val message = if (moduleState.isAccessible) {
-                "Navigating to ${moduleState.module.title}"
-            } else {
-                "Access denied: ${if (viewModel.isCoolingPeriod()) "cooling period" else "no permission"}"
+            val message = when {
+                viewModel.isCoolingPeriod() -> "Access denied: cooling period"
+                !moduleState.isAccessible -> "Access denied: no permission"
+                else -> "Navigating to ${moduleState.module.title}"
             }
             Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
         }
+
         binding.cardRv.apply {
             layoutManager = LinearLayoutManager(context)
             adapter = cardAdapter
@@ -48,7 +51,8 @@ class MainFragment : BaseFragment<FragmentMainBinding>(FragmentMainBinding::infl
         viewModel.user.observe(viewLifecycleOwner) { user ->
             if (viewModel.isCoolingPeriod()) {
                 binding.coolingCv.visibility = View.VISIBLE
-                binding.coolingPeriodTv.text = viewModel.getRemainingCoolingTime()
+                val remainingMillis = viewModel.getRemainingMillis()
+                startCoolingCountdown(remainingMillis)
             } else {
                 binding.coolingCv.visibility = View.GONE
             }
@@ -58,4 +62,28 @@ class MainFragment : BaseFragment<FragmentMainBinding>(FragmentMainBinding::infl
             cardAdapter.submitList(modules)
         }
     }
+
+    private fun startCoolingCountdown(millis: Long) {
+        coolingTimer?.cancel()
+
+        coolingTimer = object : CountDownTimer(millis, 1000) {
+            override fun onTick(remainingMillis: Long) {
+                val seconds = (remainingMillis / 1000) % 60
+                val minutes = (remainingMillis / (1000 * 60)) % 60
+                binding.coolingPeriodTv.text = String.format( "Cooling ends in %02d:%02d", minutes, seconds )
+            }
+
+            @RequiresApi(Build.VERSION_CODES.O)
+            override fun onFinish() {
+                binding.coolingCv.visibility = View.GONE
+                viewModel.loadUserAndModules()
+            }
+        }.start()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        coolingTimer?.cancel()
+    }
+
 }

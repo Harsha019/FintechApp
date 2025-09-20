@@ -17,8 +17,7 @@ class CardAdapter(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ModuleViewHolder {
-        val inflater = LayoutInflater.from(parent.context)
-        val binding = ItemModuleBinding.inflate(inflater, parent, false)
+        val binding = ItemModuleBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ModuleViewHolder(binding)
     }
 
@@ -26,15 +25,19 @@ class CardAdapter(
         holder.bind(modules[position])
     }
 
-    override fun getItemCount(): Int = modules.size
+    override fun getItemCount() = modules.size
 
-    inner class ModuleViewHolder(val binding: ItemModuleBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class ModuleViewHolder(private val binding: ItemModuleBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+
         fun bind(moduleState: ModuleState) {
             binding.titleTextView.text = moduleState.module.title
+
+            binding.root.alpha = if (moduleState.isAccessible) 1.0f else 0.5f
+
             binding.root.setOnClickListener {
                 onItemClick(moduleState)
             }
-            binding.root.alpha = if (moduleState.isAccessible) 1.0f else 0.5f
         }
     }
 }

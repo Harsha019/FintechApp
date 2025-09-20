@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.fragments.MainFragment">
 
@@ -12,7 +13,7 @@
         android:layout_height="wrap_content"
         android:text="@string/demo_heading_txt"
         android:textSize="@dimen/sp_size_34"
-        android:layout_marginTop="@dimen/size_10"
+        android:layout_marginTop="@dimen/size_20"
         android:textStyle="bold"
         android:gravity="center"
         android:layout_marginHorizontal="@dimen/size_14"
@@ -73,7 +74,8 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/card_rv"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginTop="@dimen/size_20"
         app:layout_constraintTop_toBottomOf="@+id/cooling_cv"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
