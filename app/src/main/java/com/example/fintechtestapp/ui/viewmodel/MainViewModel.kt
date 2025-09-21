@@ -3,6 +3,7 @@ package com.example.fintechtestapp.ui.viewmodel
 import android.content.Context
 import android.os.Build
 import androidx.annotation.RequiresApi
+import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.*
 import com.example.fintechtestapp.data.local.UserEntity
 import com.example.fintechtestapp.data.model.ModuleState
@@ -50,6 +51,11 @@ class MainViewModel(
 
     @RequiresApi(Build.VERSION_CODES.O)
     fun isCoolingPeriod(): Boolean = accessManager.isCoolingPeriod(_user.value)
+
+    @VisibleForTesting
+    fun setUserForTest(user: User) {
+        _user.value = user
+    }
 
     @RequiresApi(Build.VERSION_CODES.O)
     fun getRemainingCoolingTime(): String = accessManager.getRemainingCoolingTime(_user.value)

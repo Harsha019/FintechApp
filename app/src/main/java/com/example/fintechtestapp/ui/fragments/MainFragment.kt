@@ -24,8 +24,8 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
  */
 class MainFragment : BaseFragment<FragmentMainBinding>(FragmentMainBinding::inflate) {
 
-    private val viewModel: MainViewModel by viewModel()
-    private lateinit var cardAdapter: CardAdapter
+    val viewModel: MainViewModel by viewModel()
+    lateinit var cardAdapter: CardAdapter
     private var coolingTimer: CountDownTimer? = null
 
     @RequiresApi(Build.VERSION_CODES.O)

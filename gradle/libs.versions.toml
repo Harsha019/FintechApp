@@ -17,6 +17,15 @@ gson = "2.10.1"
 navigationFragmentKtx = "2.9.4"
 navigationUiKtx = "2.9.4"
 viewbinding = "8.13.0"
+coroutinesTest = "1.8.1"
+archCoreTesting = "2.2.0"
+truth = "1.4.2"
+mockito = "5.14.2"
+mockitoKotlin = "5.4.0"
+mockk = "1.13.12"
+espresso = "3.6.1"
+androidxTestCore = "1.6.1"
+junitKtx = "1.3.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -39,6 +48,18 @@ gson = { group = "com.google.code.gson", name = "gson", version.ref = "gson" }
 androidx-navigation-fragment-ktx = { group = "androidx.navigation", name = "navigation-fragment-ktx", version.ref = "navigationFragmentKtx" }
 androidx-navigation-ui-ktx = { group = "androidx.navigation", name = "navigation-ui-ktx", version.ref = "navigationUiKtx" }
 androidx-viewbinding = { group = "androidx.databinding", name = "viewbinding", version.ref = "viewbinding" }
+
+fragment-testing = { group = "androidx.fragment", name = "fragment-testing", version = "1.6.2" }
+robolectric = { group = "org.robolectric", name = "robolectric", version = "4.11.1" }
+coroutines-test = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-test", version.ref = "coroutinesTest" }
+arch-core-testing = { group = "androidx.arch.core", name = "core-testing", version.ref = "archCoreTesting" }
+truth = { group = "com.google.truth", name = "truth", version.ref = "truth" }
+mockito-core = { group = "org.mockito", name = "mockito-core", version.ref = "mockito" }
+mockito-kotlin = { group = "org.mockito.kotlin", name = "mockito-kotlin", version.ref = "mockitoKotlin" }
+mockk = { group = "io.mockk", name = "mockk", version.ref = "mockk" }
+espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espresso" }
+androidx-test-core = { group = "androidx.test", name = "core", version.ref = "androidxTestCore" }
+androidx-junit-ktx = { group = "androidx.test.ext", name = "junit-ktx", version.ref = "junitKtx" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

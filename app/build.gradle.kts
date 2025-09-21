@@ -55,6 +55,7 @@ dependencies {
     implementation(libs.androidx.navigation.fragment.ktx)
     implementation(libs.androidx.navigation.ui.ktx)
     implementation(libs.androidx.viewbinding)
+    implementation(libs.androidx.junit.ktx)
     kapt(libs.room.compiler)
     implementation(libs.room.ktx)
 
@@ -69,4 +70,19 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+
+    testImplementation(libs.coroutines.test)
+    debugImplementation(libs.fragment.testing)
+    testImplementation(libs.arch.core.testing)
+    testImplementation(libs.truth)
+    testImplementation(libs.mockito.core)
+    testImplementation(libs.mockito.kotlin)
+    testImplementation(libs.mockk)
+    testImplementation(libs.androidx.test.core)
+    androidTestImplementation(libs.espresso.core)
+    testImplementation(kotlin("test"))
+    androidTestImplementation(libs.androidx.junit)
+    androidTestImplementation(libs.espresso.core)
+    testImplementation("org.robolectric:robolectric:4.11.1")
+
 }

@@ -8,7 +8,7 @@ import com.example.fintechtestapp.databinding.ItemModuleBinding
 
 class CardAdapter(
     private var modules: List<ModuleState>,
-    private val onItemClick: (ModuleState) -> Unit
+    val onItemClick: (ModuleState) -> Unit
 ) : RecyclerView.Adapter<CardAdapter.ModuleViewHolder>() {
 
     fun submitList(newModules: List<ModuleState>) {
