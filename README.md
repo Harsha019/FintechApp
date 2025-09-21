@@ -38,6 +38,18 @@ This is a simple Android project built using Kotlin with basic architecture setu
 - **Conditions and AccessManager checks (cooling period, role-based permissions) are not yet added** – this will be implemented in the next step.  
 - Next step: Add **cooling period checks, role-based access control, and module permission logic** on top of the dynamic data flow.
 
+Day 4
+Completed full dynamic data flow and integrated AccessManager logic.
+Cooling period checks, role-based permissions, and module consent are fully implemented.
+Main Demo Screen now updates UI dynamically based on user type, permissions, and module state.
+Navigation and UI components respond correctly to all dynamic conditions.
+
+Day 5
+Wrote unit tests for MainViewModel covering data loading, cooling period checks, and access permissions.
+Verified that LiveData updates correctly for users and modules under different scenarios.
+Ensured isCoolingPeriod() and getRemainingCoolingTime() delegate properly to AccessManager.
+All ViewModel logic is now fully tested and validated with JUnit.
+
 
 
 
