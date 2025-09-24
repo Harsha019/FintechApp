@@ -12,12 +12,3 @@ data class UserEntity(
     val coolingEndTime: String,
     val accessibleModules: String
 )
-
-fun UserEntity.toUser(): User {
-    return User(
-        userType = userType,
-        coolingStartTime = coolingStartTime,
-        coolingEndTime = coolingEndTime,
-        accessibleModules = accessibleModules.split(",")
-    )
-}

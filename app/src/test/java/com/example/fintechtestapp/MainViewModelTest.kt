@@ -93,43 +93,6 @@ class MainViewModelTest {
     }
 
     @Test
-    fun loadUserAndModules_populatesLive_Data_correctly() = runTest {
-        val testUser = User(
-            userType = "admin",
-            coolingStartTime = Instant.now().toString(),
-            coolingEndTime = Instant.now().plusSeconds(60).toString(),
-            accessibleModules = listOf("m1")
-        )
-        val moduleA = Module(id = "m1", title = "Payments", requiresConsent = false)
-        val moduleB = Module(id = "m2", title = "Account Info", requiresConsent = true)
-
-        val appData = AppData(user = testUser, modules = listOf(moduleA, moduleB))
-
-        coEvery { repository.loadAppData() } returns appData
-
-        every { accessManager.canAccess(testUser, moduleA) } returns true
-        every { accessManager.canAccess(testUser, moduleB) } returns false
-
-        viewModel = MainViewModel(repository, accessManager)
-        viewModel.loadUserAndModules()
-
-        val observedUser = viewModel.user.getOrAwaitValue()
-        assertNotNull(observedUser)
-        assertEquals(testUser, observedUser)
-
-        val observedModules = viewModel.modules.getOrAwaitValue()
-        assertEquals(2, observedModules.size)
-        assertEquals(moduleA, observedModules[0].module)
-        assertTrue(observedModules[0].isAccessible)
-        assertEquals(moduleB, observedModules[1].module)
-        assertFalse(observedModules[1].isAccessible)
-        verify { accessManager.canAccess(testUser, moduleA) }
-        verify { accessManager.canAccess(testUser, moduleB) }
-    }
-
-
-    // ---------- TEST 1: loadUserAndModules populates LiveData ----------
-    @Test
     fun loadUserAndModules_populatesLiveData_correctly() = runTest {
         val testUser = User(
             userType = "admin",
@@ -165,7 +128,7 @@ class MainViewModelTest {
         verify { accessManager.canAccess(testUser, moduleB) }
     }
 
-    // ---------- TEST 2: getRemainingMillis (future -> positive) ----------
+
     @Test
     fun getRemainingMillis_future_returnsPositive() = runTest {
         val futureUser = User(
@@ -182,7 +145,7 @@ class MainViewModelTest {
         assertTrue(remaining > 0, "Expected remaining millis > 0 for future coolingEndTime")
     }
 
-    // ---------- TEST 3: getRemainingMillis (past -> zero) ----------
+
     @Test
     fun getRemainingMillis_past_returnsZero() = runTest {
         val pastUser = User(
@@ -199,7 +162,7 @@ class MainViewModelTest {
         assertEquals(0L, remaining)
     }
 
-    // ---------- TEST 4: isCoolingPeriod delegates to AccessManager ----------
+
     @Test
     fun isCoolingPeriod_delegatesToAccessManager() = runTest {
         val u = User(
@@ -218,7 +181,7 @@ class MainViewModelTest {
         verify { accessManager.isCoolingPeriod(u) }
     }
 
-    // ---------- TEST 5: getRemainingCoolingTime delegates ----------
+
     @Test
     fun getRemainingCoolingTime_delegatesToAccessManager() = runTest {
         val u = User(
